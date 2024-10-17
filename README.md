@@ -3,6 +3,7 @@
  - Camden Hovell's CS315 project for the Midsemester Ex(j)am
  - 2D point-and-click arcade game
  - You run a small candy store named Hoosieroons where you must give customers their favorite Hoosieroon candy (chocolate or lollipop)
+ - Play game on [Itch.io here](https://cam-com.itch.io/hoosieroons)
 
 ## Third-Party Assets
 
