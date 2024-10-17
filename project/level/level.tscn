@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://dhyl02ube7gga"]
+[gd_scene load_steps=17 format=3 uid="uid://dhyl02ube7gga"]
 
 [ext_resource type="Texture2D" uid="uid://n2up7g8rr0cu" path="res://level/counter.png" id="1_61mip"]
 [ext_resource type="Script" path="res://level/level.gd" id="1_lhmyf"]
@@ -12,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://pkvpw8pw8ytg" path="res://level/face_lose.png" id="11_aa6jy"]
 [ext_resource type="Texture2D" uid="uid://df18iupmeqplo" path="res://level/face_win.png" id="12_1o1ao"]
 [ext_resource type="Texture2D" uid="uid://ekw2no8yw0jo" path="res://level/refill_lollipop.png" id="12_imsh1"]
+[ext_resource type="Texture2D" uid="uid://v68qw42jdkhn" path="res://blur-chair-people-interior-cafe.jpg" id="13_ihgsc"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5l1jg"]
 bg_color = Color(0.215686, 0.215686, 0.215686, 1)
@@ -242,6 +243,13 @@ theme_override_constants/outline_size = 5
 theme_override_fonts/font = ExtResource("8_blkws")
 theme_override_font_sizes/font_size = 50
 text = "Main Menu"
+
+[node name="BG" type="Sprite2D" parent="."]
+z_index = -10
+z_as_relative = false
+position = Vector2(540, 355)
+scale = Vector2(0.183, 0.183)
+texture = ExtResource("13_ihgsc")
 
 [connection signal="timeout" from="CustomerRespawnTimer" to="." method="_on_customer_respawn_timer_timeout"]
 [connection signal="pressed" from="ChocolateRefillButton" to="." method="_on_chocolate_refill_button_pressed"]

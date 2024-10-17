@@ -79,7 +79,7 @@ func _spawn_customer() -> void:
 	
 	
 func _restart_respawn_timer() -> void:
-	var random_time = randf_range(1.5, 3.25)
+	var random_time = randf_range(2.75, 3.75)
 	customer_respawn_timer.wait_time = random_time
 	customer_respawn_timer.start()
 	
