@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://c7j408ml2a60h"]
+
+[ext_resource type="Script" path="res://chocolate_spot/chocolate_spot.gd" id="1_gvjtc"]
+[ext_resource type="Texture2D" uid="uid://dce0nvmb3f6id" path="res://chocolate/chocolate.png" id="2_cjfts"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ujtt6"]
+size = Vector2(72, 32)
+
+[node name="ChocolateSpot" type="StaticBody2D" groups=["dropable_spot_chocolate"]]
+z_index = 11
+z_as_relative = false
+script = ExtResource("1_gvjtc")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+z_index = 15
+z_as_relative = false
+shape = SubResource("RectangleShape2D_ujtt6")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.075, 0.075)
+texture = ExtResource("2_cjfts")

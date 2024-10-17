@@ -1,0 +1,139 @@
+[gd_scene load_steps=11 format=3 uid="uid://dhyl02ube7gga"]
+
+[ext_resource type="Texture2D" uid="uid://n2up7g8rr0cu" path="res://level/counter.png" id="1_61mip"]
+[ext_resource type="Script" path="res://level/level.gd" id="1_lhmyf"]
+[ext_resource type="Texture2D" uid="uid://c1ckn8doo4cx0" path="res://level/counter_glass.png" id="2_uym3h"]
+[ext_resource type="PackedScene" uid="uid://c7j408ml2a60h" path="res://chocolate_spot/chocolate_spot.tscn" id="4_47xgk"]
+[ext_resource type="PackedScene" uid="uid://d2vom4ev05xj4" path="res://lollipop_spot/lollipop_spot.tscn" id="6_nwej5"]
+[ext_resource type="FontFile" uid="uid://2ixfpehsv6k7" path="res://LondrinaSolid-Black.ttf" id="8_blkws"]
+[ext_resource type="Texture2D" uid="uid://cyx6nyvnep73p" path="res://level/refill_chocolate.png" id="9_hd3bj"]
+[ext_resource type="Texture2D" uid="uid://ctfs78pvmmhjk" path="res://level/refill_bg.png" id="10_u50cq"]
+[ext_resource type="Texture2D" uid="uid://bkcqibactivsd" path="res://level/refill_progress.png" id="11_4r8pt"]
+[ext_resource type="Texture2D" uid="uid://ekw2no8yw0jo" path="res://level/refill_lollipop.png" id="12_imsh1"]
+
+[node name="Level" type="Node2D"]
+script = ExtResource("1_lhmyf")
+
+[node name="Counter" type="Sprite2D" parent="."]
+z_index = 10
+z_as_relative = false
+position = Vector2(540, 520)
+texture = ExtResource("1_61mip")
+
+[node name="CounterGlass" type="Sprite2D" parent="."]
+z_index = 13
+z_as_relative = false
+position = Vector2(540, 520)
+texture = ExtResource("2_uym3h")
+
+[node name="ChocolateSpot1" parent="." instance=ExtResource("4_47xgk")]
+position = Vector2(90, 600)
+
+[node name="ChocolateSpot2" parent="." instance=ExtResource("4_47xgk")]
+position = Vector2(280, 600)
+
+[node name="ChocolateSpot3" parent="." instance=ExtResource("4_47xgk")]
+position = Vector2(470, 600)
+
+[node name="LollipopSpot1" parent="." instance=ExtResource("6_nwej5")]
+position = Vector2(600, 600)
+
+[node name="LollipopSpot2" parent="." instance=ExtResource("6_nwej5")]
+position = Vector2(800, 600)
+
+[node name="LollipopSpot3" parent="." instance=ExtResource("6_nwej5")]
+position = Vector2(1000, 600)
+
+[node name="CustomerSpot1" type="Marker2D" parent="."]
+position = Vector2(250, 350)
+gizmo_extents = 50.0
+
+[node name="CustomerSpot2" type="Marker2D" parent="."]
+position = Vector2(450, 350)
+gizmo_extents = 50.0
+
+[node name="CustomerSpot3" type="Marker2D" parent="."]
+position = Vector2(650, 350)
+gizmo_extents = 50.0
+
+[node name="CustomerSpot4" type="Marker2D" parent="."]
+position = Vector2(850, 350)
+gizmo_extents = 50.0
+
+[node name="CustomerRespawnTimer" type="Timer" parent="."]
+
+[node name="ChocolateRefillButton" type="Button" parent="."]
+z_index = 30
+z_as_relative = false
+offset_left = 240.0
+offset_top = 16.0
+offset_right = 330.0
+offset_bottom = 106.0
+focus_mode = 0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("8_blkws")
+theme_override_font_sizes/font_size = 25
+shortcut_feedback = false
+shortcut_in_tooltip = false
+text = "REFILL"
+icon = ExtResource("9_hd3bj")
+flat = true
+icon_alignment = 1
+expand_icon = true
+
+[node name="ChocolateRefillProgress" type="TextureProgressBar" parent="ChocolateRefillButton"]
+z_index = 24
+z_as_relative = false
+layout_mode = 0
+offset_left = -5.0
+offset_top = -5.0
+offset_right = 95.0
+offset_bottom = 95.0
+value = 42.0
+fill_mode = 4
+texture_under = ExtResource("10_u50cq")
+texture_progress = ExtResource("11_4r8pt")
+
+[node name="ChocolateRefillTimer" type="Timer" parent="ChocolateRefillButton"]
+wait_time = 5.0
+
+[node name="LollipopRefillButton" type="Button" parent="."]
+z_index = 30
+z_as_relative = false
+offset_left = 800.0
+offset_top = 16.0
+offset_right = 890.0
+offset_bottom = 106.0
+focus_mode = 0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("8_blkws")
+theme_override_font_sizes/font_size = 25
+shortcut_feedback = false
+shortcut_in_tooltip = false
+text = "REFILL"
+icon = ExtResource("12_imsh1")
+flat = true
+icon_alignment = 1
+expand_icon = true
+
+[node name="LollipopRefillProgress" type="TextureProgressBar" parent="LollipopRefillButton"]
+z_index = 24
+z_as_relative = false
+layout_mode = 0
+offset_left = -5.0
+offset_top = -5.0
+offset_right = 95.0
+offset_bottom = 95.0
+value = 42.0
+fill_mode = 4
+texture_under = ExtResource("10_u50cq")
+texture_progress = ExtResource("11_4r8pt")
+
+[node name="LollipopRefillTimer" type="Timer" parent="LollipopRefillButton"]
+wait_time = 5.0
+
+[connection signal="timeout" from="CustomerRespawnTimer" to="." method="_on_customer_respawn_timer_timeout"]
+[connection signal="pressed" from="ChocolateRefillButton" to="." method="_on_chocolate_refill_button_pressed"]
+[connection signal="timeout" from="ChocolateRefillButton/ChocolateRefillTimer" to="." method="_on_chocolate_refill_timer_timeout"]
+[connection signal="pressed" from="LollipopRefillButton" to="." method="_on_lollipop_refill_button_pressed"]
+[connection signal="timeout" from="LollipopRefillButton/LollipopRefillTimer" to="." method="_on_lollipop_refill_timer_timeout"]

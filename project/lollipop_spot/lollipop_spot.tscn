@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://d2vom4ev05xj4"]
+
+[ext_resource type="Script" path="res://lollipop_spot/lollipop_spot.gd" id="1_3rq4q"]
+[ext_resource type="Texture2D" uid="uid://ce1vnobxbmms1" path="res://lollipop/lollipop.png" id="1_qj7ls"]
+
+[node name="LollipopSpot" type="StaticBody2D" groups=["dropable_spot_lollipop"]]
+z_index = 11
+z_as_relative = false
+script = ExtResource("1_3rq4q")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("1_qj7ls")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(0, -45, 14, -41, 24, -31, 26, -14, 21, -2, 10, 6, 10, 46, -10, 46, -10, 6, -21, -2, -27, -17, -22, -33, -13, -42)
