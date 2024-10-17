@@ -8,7 +8,7 @@ var _items_left : int
 @onready var item_count: Label = $WantBubble/VBoxContainer/HBoxContainer/ItemCount
 @onready var sprite_2d: Sprite2D = $Sprite2D
 @onready var happiness_timer: Timer = $HappinessTimer
-@onready var progress_bar: ProgressBar = $WantBubble/VBoxContainer/ProgressBar
+@onready var progress_bar: ProgressBar = $WantBubble/VBoxContainer/HBoxContainer2/ProgressBar
 
 func _ready() -> void:
 	sprite_2d.modulate = Color(randf_range(0, 1), randf_range(0, 1), randf_range(0, 1))

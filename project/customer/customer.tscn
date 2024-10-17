@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://qgtiu5jjbbmm"]
+[gd_scene load_steps=10 format=3 uid="uid://qgtiu5jjbbmm"]
 
 [ext_resource type="Script" path="res://customer/customer.gd" id="1_10ghj"]
 [ext_resource type="Texture2D" uid="uid://dpf6x78cwxglo" path="res://customer/customer.png" id="2_7wgps"]
 [ext_resource type="StyleBox" uid="uid://bc5ak5257d3yn" path="res://customer/want_bubble.tres" id="3_e4ae5"]
 [ext_resource type="Theme" uid="uid://p27wel55s5yk" path="res://text_theme.tres" id="4_abu36"]
 [ext_resource type="Texture2D" uid="uid://dce0nvmb3f6id" path="res://chocolate/chocolate.png" id="5_e7m6o"]
+[ext_resource type="Texture2D" uid="uid://pkvpw8pw8ytg" path="res://level/face_lose.png" id="6_j6xjk"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_foabd"]
 bg_color = Color(0.521141, 0.521141, 0.52114, 1)
@@ -14,7 +15,7 @@ corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q2lac"]
-bg_color = Color(1, 0.344019, 0.270059, 1)
+bg_color = Color(0.25098, 0, 1, 1)
 corner_radius_top_left = 5
 corner_radius_top_right = 5
 corner_radius_bottom_right = 5
@@ -72,14 +73,24 @@ theme = ExtResource("4_abu36")
 theme_override_font_sizes/font_size = 20
 text = "x1"
 
-[node name="ProgressBar" type="ProgressBar" parent="WantBubble/VBoxContainer"]
-custom_minimum_size = Vector2(60, 10)
+[node name="HBoxContainer2" type="HBoxContainer" parent="WantBubble/VBoxContainer"]
+layout_mode = 2
+alignment = 2
+
+[node name="TextureRect" type="TextureRect" parent="WantBubble/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(15, 15)
+layout_mode = 2
+texture = ExtResource("6_j6xjk")
+expand_mode = 1
+
+[node name="ProgressBar" type="ProgressBar" parent="WantBubble/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(60, 5)
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 3
 theme_override_styles/background = SubResource("StyleBoxFlat_foabd")
 theme_override_styles/fill = SubResource("StyleBoxFlat_q2lac")
-value = 50.0
+value = 56.59
 show_percentage = false
 
 [node name="HappinessTimer" type="Timer" parent="."]

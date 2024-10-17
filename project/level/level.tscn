@@ -89,7 +89,7 @@ gizmo_extents = 50.0
 [node name="CustomerRespawnTimer" type="Timer" parent="."]
 
 [node name="ChocolateRefillButton" type="Button" parent="."]
-z_index = 30
+z_index = 10
 z_as_relative = false
 offset_left = 240.0
 offset_top = 16.0
@@ -108,7 +108,7 @@ icon_alignment = 1
 expand_icon = true
 
 [node name="ChocolateRefillProgress" type="TextureProgressBar" parent="ChocolateRefillButton"]
-z_index = 24
+z_index = 9
 z_as_relative = false
 layout_mode = 0
 offset_left = -5.0
@@ -124,7 +124,7 @@ texture_progress = ExtResource("11_4r8pt")
 wait_time = 2.0
 
 [node name="LollipopRefillButton" type="Button" parent="."]
-z_index = 30
+z_index = 10
 z_as_relative = false
 offset_left = 800.0
 offset_top = 16.0
@@ -143,7 +143,7 @@ icon_alignment = 1
 expand_icon = true
 
 [node name="LollipopRefillProgress" type="TextureProgressBar" parent="LollipopRefillButton"]
-z_index = 24
+z_index = 9
 z_as_relative = false
 layout_mode = 0
 offset_left = -5.0
@@ -159,7 +159,7 @@ texture_progress = ExtResource("11_4r8pt")
 wait_time = 2.0
 
 [node name="LoseProgressBar" type="ProgressBar" parent="."]
-z_index = 25
+z_index = 11
 z_as_relative = false
 offset_left = 680.0
 offset_top = 485.0
@@ -185,7 +185,7 @@ scale = Vector2(0.4, 0.4)
 texture = ExtResource("11_aa6jy")
 
 [node name="WinProgressBar" type="ProgressBar" parent="."]
-z_index = 25
+z_index = 11
 z_as_relative = false
 offset_left = 200.0
 offset_top = 485.0
