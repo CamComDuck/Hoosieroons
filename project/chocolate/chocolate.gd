@@ -9,7 +9,7 @@ var _offset : Vector2
 var _initial_pos : Vector2
 
 func _process(_delta: float) -> void:
-	if _draggable:
+	if _draggable and not WinLoseManager.game_over:
 		if Input.is_action_just_pressed("click"):
 			_initial_pos = global_position
 			_offset = get_global_mouse_position() - global_position

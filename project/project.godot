@@ -18,6 +18,7 @@ config/icon="res://chocolate/chocolate.png"
 [autoload]
 
 DragManager="*res://level/drag_manager.gd"
+WinLoseManager="*res://level/win_lose_manager.gd"
 
 [display]
 

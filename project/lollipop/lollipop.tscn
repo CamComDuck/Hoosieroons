@@ -8,13 +8,13 @@ radius = 20.0
 height = 72.0
 
 [node name="Lollipop" type="Area2D"]
+z_index = 50
+z_as_relative = false
 collision_layer = 3
 collision_mask = 3
 script = ExtResource("1_dfs5h")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-z_index = 12
-z_as_relative = false
 scale = Vector2(0.08, 0.08)
 texture = ExtResource("2_g38xy")
 

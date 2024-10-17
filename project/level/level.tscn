@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://dhyl02ube7gga"]
+[gd_scene load_steps=16 format=3 uid="uid://dhyl02ube7gga"]
 
 [ext_resource type="Texture2D" uid="uid://n2up7g8rr0cu" path="res://level/counter.png" id="1_61mip"]
 [ext_resource type="Script" path="res://level/level.gd" id="1_lhmyf"]
@@ -9,7 +9,32 @@
 [ext_resource type="Texture2D" uid="uid://cyx6nyvnep73p" path="res://level/refill_chocolate.png" id="9_hd3bj"]
 [ext_resource type="Texture2D" uid="uid://ctfs78pvmmhjk" path="res://level/refill_bg.png" id="10_u50cq"]
 [ext_resource type="Texture2D" uid="uid://bkcqibactivsd" path="res://level/refill_progress.png" id="11_4r8pt"]
+[ext_resource type="Texture2D" uid="uid://pkvpw8pw8ytg" path="res://level/face_lose.png" id="11_aa6jy"]
+[ext_resource type="Texture2D" uid="uid://df18iupmeqplo" path="res://level/face_win.png" id="12_1o1ao"]
 [ext_resource type="Texture2D" uid="uid://ekw2no8yw0jo" path="res://level/refill_lollipop.png" id="12_imsh1"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5l1jg"]
+bg_color = Color(0.215686, 0.215686, 0.215686, 1)
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+shadow_size = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lj6ef"]
+bg_color = Color(0.25098, 0, 1, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7xcmr"]
+bg_color = Color(0.980392, 1, 0, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
 
 [node name="Level" type="Node2D"]
 script = ExtResource("1_lhmyf")
@@ -95,7 +120,7 @@ texture_under = ExtResource("10_u50cq")
 texture_progress = ExtResource("11_4r8pt")
 
 [node name="ChocolateRefillTimer" type="Timer" parent="ChocolateRefillButton"]
-wait_time = 3.0
+wait_time = 2.0
 
 [node name="LollipopRefillButton" type="Button" parent="."]
 z_index = 30
@@ -130,10 +155,98 @@ texture_under = ExtResource("10_u50cq")
 texture_progress = ExtResource("11_4r8pt")
 
 [node name="LollipopRefillTimer" type="Timer" parent="LollipopRefillButton"]
-wait_time = 5.0
+wait_time = 2.0
+
+[node name="LoseProgressBar" type="ProgressBar" parent="."]
+z_index = 25
+z_as_relative = false
+offset_left = 680.0
+offset_top = 485.0
+offset_right = 880.0
+offset_bottom = 512.0
+theme_override_styles/background = SubResource("StyleBoxFlat_5l1jg")
+theme_override_styles/fill = SubResource("StyleBoxFlat_lj6ef")
+max_value = 99.0
+step = 33.0
+rounded = true
+fill_mode = 1
+show_percentage = false
+
+[node name="FaceLose" type="TextureRect" parent="LoseProgressBar"]
+z_index = 25
+z_as_relative = false
+layout_mode = 0
+offset_left = -48.0
+offset_top = -8.0
+offset_right = 52.0
+offset_bottom = 92.0
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("11_aa6jy")
+
+[node name="WinProgressBar" type="ProgressBar" parent="."]
+z_index = 25
+z_as_relative = false
+offset_left = 200.0
+offset_top = 485.0
+offset_right = 400.0
+offset_bottom = 512.0
+theme_override_styles/background = SubResource("StyleBoxFlat_5l1jg")
+theme_override_styles/fill = SubResource("StyleBoxFlat_7xcmr")
+step = 10.0
+rounded = true
+show_percentage = false
+
+[node name="FaceWin" type="TextureRect" parent="WinProgressBar"]
+z_index = 25
+z_as_relative = false
+layout_mode = 0
+offset_left = 208.0
+offset_top = -8.0
+offset_right = 308.0
+offset_bottom = 92.0
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("12_1o1ao")
+
+[node name="EndGameContainer" type="VBoxContainer" parent="."]
+visible = false
+z_index = 60
+z_as_relative = false
+offset_left = 192.575
+offset_top = 169.415
+offset_right = 890.575
+offset_bottom = 550.415
+alignment = 1
+
+[node name="EndGameLabel" type="Label" parent="EndGameContainer"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("8_blkws")
+theme_override_font_sizes/font_size = 200
+text = "You Lose!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RestartButton" type="Button" parent="EndGameContainer"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("8_blkws")
+theme_override_font_sizes/font_size = 50
+text = "Restart"
+
+[node name="MainMenuButton" type="Button" parent="EndGameContainer"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("8_blkws")
+theme_override_font_sizes/font_size = 50
+text = "Main Menu"
 
 [connection signal="timeout" from="CustomerRespawnTimer" to="." method="_on_customer_respawn_timer_timeout"]
 [connection signal="pressed" from="ChocolateRefillButton" to="." method="_on_chocolate_refill_button_pressed"]
 [connection signal="timeout" from="ChocolateRefillButton/ChocolateRefillTimer" to="." method="_on_chocolate_refill_timer_timeout"]
 [connection signal="pressed" from="LollipopRefillButton" to="." method="_on_lollipop_refill_button_pressed"]
 [connection signal="timeout" from="LollipopRefillButton/LollipopRefillTimer" to="." method="_on_lollipop_refill_timer_timeout"]
+[connection signal="pressed" from="EndGameContainer/RestartButton" to="." method="_on_restart_button_pressed"]
+[connection signal="pressed" from="EndGameContainer/MainMenuButton" to="." method="_on_main_menu_button_pressed"]

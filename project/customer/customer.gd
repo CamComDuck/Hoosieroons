@@ -32,6 +32,8 @@ func _ready() -> void:
 
 func _physics_process(_delta: float) -> void:
 	progress_bar.value = (happiness_timer.time_left / happiness_timer.wait_time) * 100
+	if WinLoseManager.game_over:
+		happiness_timer.stop()
 	
 
 func want_item_collision(item : String) -> void:
@@ -40,7 +42,9 @@ func want_item_collision(item : String) -> void:
 		if _items_left > 0:
 			item_count.text = "x " + str(_items_left)
 		else:
+			WinLoseManager.win_percent += 10
 			queue_free()
 
 func _on_happiness_timer_timeout() -> void:
+	WinLoseManager.lose_percent += 33
 	queue_free()
