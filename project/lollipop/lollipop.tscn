@@ -4,8 +4,8 @@
 [ext_resource type="Texture2D" uid="uid://ce1vnobxbmms1" path="res://lollipop/lollipop.png" id="2_g38xy"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_okgvc"]
-radius = 22.49
-height = 90.77
+radius = 20.0
+height = 72.0
 
 [node name="Lollipop" type="Area2D"]
 collision_layer = 3
@@ -15,7 +15,7 @@ script = ExtResource("1_dfs5h")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 z_index = 12
 z_as_relative = false
-scale = Vector2(0.1, 0.1)
+scale = Vector2(0.08, 0.08)
 texture = ExtResource("2_g38xy")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

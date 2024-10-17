@@ -45,19 +45,19 @@ position = Vector2(800, 600)
 position = Vector2(1000, 600)
 
 [node name="CustomerSpot1" type="Marker2D" parent="."]
-position = Vector2(250, 350)
+position = Vector2(180, 350)
 gizmo_extents = 50.0
 
 [node name="CustomerSpot2" type="Marker2D" parent="."]
-position = Vector2(450, 350)
+position = Vector2(420, 350)
 gizmo_extents = 50.0
 
 [node name="CustomerSpot3" type="Marker2D" parent="."]
-position = Vector2(650, 350)
+position = Vector2(660, 350)
 gizmo_extents = 50.0
 
 [node name="CustomerSpot4" type="Marker2D" parent="."]
-position = Vector2(850, 350)
+position = Vector2(900, 350)
 gizmo_extents = 50.0
 
 [node name="CustomerRespawnTimer" type="Timer" parent="."]
@@ -95,7 +95,7 @@ texture_under = ExtResource("10_u50cq")
 texture_progress = ExtResource("11_4r8pt")
 
 [node name="ChocolateRefillTimer" type="Timer" parent="ChocolateRefillButton"]
-wait_time = 5.0
+wait_time = 3.0
 
 [node name="LollipopRefillButton" type="Button" parent="."]
 z_index = 30

@@ -22,7 +22,7 @@ corner_radius_bottom_left = 5
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_vmd3l"]
 radius = 77.02
-height = 291.4
+height = 250.0
 
 [node name="Customer" type="StaticBody2D" groups=["customer"]]
 collision_layer = 2
@@ -86,6 +86,7 @@ show_percentage = false
 one_shot = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -11)
 shape = SubResource("CapsuleShape2D_vmd3l")
 
 [connection signal="timeout" from="HappinessTimer" to="." method="_on_happiness_timer_timeout"]

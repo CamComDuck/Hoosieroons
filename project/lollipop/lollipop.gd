@@ -14,24 +14,25 @@ func _process(_delta: float) -> void:
 			_initial_pos = global_position
 			_offset = get_global_mouse_position() - global_position
 			DragManager.is_dragging = true
-		
+			
 		if Input.is_action_pressed("click"):
 			global_position = get_global_mouse_position() - _offset
-		elif Input.is_action_just_released("click") and _hovered_object != null:
+			
+		elif Input.is_action_just_released("click"):
 			DragManager.is_dragging = false
 			
 			if _is_inside_dropable:
-				
-				DragManager.available_lollipop_spots.append(_current_object)
-				DragManager.available_lollipop_spots.erase(_hovered_object)
-				
-				if _hovered_object.is_in_group("customer"):
-					_hovered_object.want_item_collision("LOLLIPOP")
-					queue_free()
-				else:
-					_current_object = _hovered_object
-					var tween = get_tree().create_tween()
-					tween.tween_property(self, "position",_hovered_object.position, 0.2).set_ease(Tween.EASE_OUT)
+				if _hovered_object != null:
+					DragManager.available_lollipop_spots.append(_current_object)
+					DragManager.available_lollipop_spots.erase(_hovered_object)
+					
+					if _hovered_object.is_in_group("customer"):
+						_hovered_object.want_item_collision("LOLLIPOP")
+						queue_free()
+					else:
+						_current_object = _hovered_object
+						var tween = get_tree().create_tween()
+						tween.tween_property(self, "position",_hovered_object.position, 0.2).set_ease(Tween.EASE_OUT)
 			else:
 				var tween = get_tree().create_tween()
 				tween.tween_property(self, "global_position",_initial_pos, 0.2).set_ease(Tween.EASE_OUT)
@@ -40,13 +41,11 @@ func _process(_delta: float) -> void:
 func _on_mouse_entered() -> void:
 	if not DragManager.is_dragging:
 		_draggable = true
-		scale = Vector2(1.1, 1.1)
 
 
 func _on_mouse_exited() -> void:
 	if not DragManager.is_dragging:
 		_draggable = false
-		scale = Vector2(1, 1)
 
 
 func _on_body_entered(body: Node2D) -> void:
@@ -62,7 +61,6 @@ func _on_body_entered(body: Node2D) -> void:
 		_is_inside_dropable = true
 		_hovered_object = body
 		body.modulate = Color(Color.GRAY, 1)
-
 
 
 func _on_body_exited(body: Node2D) -> void:

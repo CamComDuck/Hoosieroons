@@ -36,7 +36,6 @@ func _physics_process(_delta: float) -> void:
 
 func want_item_collision(item : String) -> void:
 	if item == _want_item:
-		print("receive emit!")
 		_items_left -= 1
 		if _items_left > 0:
 			item_count.text = "x " + str(_items_left)
