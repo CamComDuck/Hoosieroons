@@ -18,4 +18,4 @@
  - Legal: Complete
  - Versioning: Complete
  - Documentation: Complete
- - Reflection: 
+ - Reflection: Complete
