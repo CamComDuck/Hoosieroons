@@ -18,6 +18,7 @@ var _lollipop_refillable := true
 @onready var end_game_label: Label = $EndGameContainer/EndGameLabel
 
 func _ready() -> void:
+	AudioController.play_bg_chatter()
 	_change_button_theme(chocolate_refill_button, Color.GREEN, Color.DARK_GREEN)
 	_change_button_theme(lollipop_refill_button, Color.GREEN, Color.DARK_GREEN)
 	
@@ -96,10 +97,12 @@ func _on_customer_respawn_timer_timeout() -> void:
 		_restart_respawn_timer()
 	else:
 		_spawn_customer()
+		AudioController.play_doorbell()
 
 
 func _on_chocolate_refill_button_pressed() -> void:
 	if _chocolate_refillable:
+		AudioController.play_button()
 		for i in DragManager.available_chocolate_spots.size():
 			var chocolate = preload("res://chocolate/chocolate.tscn").instantiate()
 			add_child(chocolate)
@@ -120,6 +123,7 @@ func _on_chocolate_refill_timer_timeout() -> void:
 
 func _on_lollipop_refill_button_pressed() -> void:
 	if _lollipop_refillable:
+		AudioController.play_button()
 		for i in DragManager.available_lollipop_spots.size():
 			var lollipop = preload("res://lollipop/lollipop.tscn").instantiate()
 			add_child(lollipop)
@@ -138,6 +142,7 @@ func _on_lollipop_refill_timer_timeout() -> void:
 
 
 func _on_restart_button_pressed() -> void:
+	AudioController.play_button()
 	DragManager.is_dragging = false
 	DragManager.available_chocolate_spots = []
 	DragManager.available_lollipop_spots = []
@@ -148,6 +153,8 @@ func _on_restart_button_pressed() -> void:
 
 
 func _on_main_menu_button_pressed() -> void:
+	AudioController.play_button()
+	AudioController.stop_bg_chatter()
 	DragManager.is_dragging = false
 	DragManager.available_chocolate_spots = []
 	DragManager.available_lollipop_spots = []

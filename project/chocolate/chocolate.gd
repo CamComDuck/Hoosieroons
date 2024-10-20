@@ -11,6 +11,7 @@ var _initial_pos : Vector2
 func _process(_delta: float) -> void:
 	if _draggable and not WinLoseManager.game_over:
 		if Input.is_action_just_pressed("click"):
+			AudioController.play_grab()
 			_initial_pos = global_position
 			_offset = get_global_mouse_position() - global_position
 			DragManager.is_dragging = true

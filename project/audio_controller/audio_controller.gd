@@ -1,15 +1,17 @@
 extends Node2D
 
+signal eat_finished
+
+func _ready() -> void:
+	$BackgroundMusic.play()
+	
+
 func play_bg_chatter() -> void:
 	$BackgroundChatter.play()
 	
 
-func pause_bg_chatter() -> void:
-	$BackgroundChatter.stream_paused = not $BackgroundChatter.stream_paused
-	
-	
-func play_bg_music() -> void:
-	$BackgroundMusic.play()
+func stop_bg_chatter() -> void:
+	$BackgroundChatter.stop()
 	
 	
 func play_button() -> void:
@@ -22,6 +24,8 @@ func play_doorbell() -> void:
 	
 func play_eat() -> void:
 	$Eat.play()
+	await $Eat.finished
+	eat_finished.emit()
 	
 	
 func play_grab() -> void:
