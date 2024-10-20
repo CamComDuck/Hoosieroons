@@ -1,0 +1,36 @@
+[gd_scene load_steps=9 format=3 uid="uid://cakxsydkuh5py"]
+
+[ext_resource type="Script" path="res://audio_controller/audio_controller.gd" id="1_nhnys"]
+[ext_resource type="AudioStream" uid="uid://hdsvi257ohno" path="res://audio_controller/background_chatter.ogg" id="2_vumwn"]
+[ext_resource type="AudioStream" uid="uid://bpxflkqkx5j88" path="res://audio_controller/background_music.ogg" id="3_l08fk"]
+[ext_resource type="AudioStream" uid="uid://c5lwjnn6eilnr" path="res://audio_controller/button.wav" id="4_xgfqh"]
+[ext_resource type="AudioStream" uid="uid://bkpqng4d5yfit" path="res://audio_controller/doorbell.wav" id="5_w85bq"]
+[ext_resource type="AudioStream" uid="uid://blndoo3ltmu4e" path="res://audio_controller/eat.wav" id="6_bniym"]
+[ext_resource type="AudioStream" uid="uid://b57bgadpqtp0p" path="res://audio_controller/grab.wav" id="7_2226o"]
+[ext_resource type="AudioStream" uid="uid://c6k4t4s15qiru" path="res://audio_controller/thanks.wav" id="8_syp77"]
+
+[node name="AudioController" type="Node2D"]
+script = ExtResource("1_nhnys")
+
+[node name="BackgroundChatter" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_vumwn")
+parameters/looping = true
+
+[node name="BackgroundMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_l08fk")
+parameters/looping = true
+
+[node name="Button" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_xgfqh")
+
+[node name="Doorbell" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_w85bq")
+
+[node name="Eat" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_bniym")
+
+[node name="Grab" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_2226o")
+
+[node name="Thanks" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_syp77")

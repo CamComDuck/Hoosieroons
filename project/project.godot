@@ -19,6 +19,7 @@ config/icon="res://chocolate/chocolate.png"
 
 DragManager="*res://level/drag_manager.gd"
 WinLoseManager="*res://level/win_lose_manager.gd"
+AudioController="*res://audio_controller/audio_controller.tscn"
 
 [display]
 
@@ -30,6 +31,7 @@ window/stretch/mode="canvas_items"
 [file_customization]
 
 folder_colors={
+"res://audio_controller/": "red",
 "res://chocolate/": "yellow",
 "res://chocolate_spot/": "green",
 "res://customer/": "blue",
