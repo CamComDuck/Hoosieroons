@@ -1,5 +1,8 @@
 extends Node2D
 
+signal drag_changed_received (new_drag : bool)
+
+var _is_dragging := false
 var _available_customer_spots : Array = []
 var _busy_customer_spots : Array = []
 var _chocolate_refillable := true
@@ -67,20 +70,26 @@ func _physics_process(_delta: float) -> void:
 	for i in _busy_customer_spots.size() - 1:
 		if _busy_customer_spots[i].get_child_count() == 0:
 			_available_customer_spots.append(_busy_customer_spots.pop_at(i))
+			
+	
+func _set_is_dragging(new_is_dragging : bool) -> void:
+	_is_dragging = new_is_dragging
+	drag_changed_received.emit(_is_dragging)
+
 
 func _spawn_customer() -> void:
-	var random_spot = randi_range(0, _available_customer_spots.size() - 1)
-	var customer_spot = _available_customer_spots.pop_at(random_spot)
+	var random_spot := randi_range(0, _available_customer_spots.size() - 1)
+	var customer_spot : Marker2D = _available_customer_spots.pop_at(random_spot)
 	_busy_customer_spots.append(customer_spot)
 	
-	var customer = preload("res://customer/customer.tscn").instantiate()
+	var customer : Customer = preload("res://customer/customer.tscn").instantiate()
 	customer_spot.add_child(customer)
 	customer.global_position = customer_spot.global_position
 	_restart_respawn_timer()
 	
 	
 func _restart_respawn_timer() -> void:
-	var random_time = randf_range(2.75, 3.75)
+	var random_time := randf_range(2.75, 3.75)
 	customer_respawn_timer.wait_time = random_time
 	customer_respawn_timer.start()
 	
@@ -104,9 +113,10 @@ func _on_chocolate_refill_button_pressed() -> void:
 	if _chocolate_refillable:
 		AudioController.play_button()
 		for i in DragManager.available_chocolate_spots.size():
-			var chocolate = preload("res://chocolate/chocolate.tscn").instantiate()
+			var chocolate : Chocolate = preload("res://chocolate/chocolate.tscn").instantiate()
 			add_child(chocolate)
 			chocolate.global_position = DragManager.available_chocolate_spots[i].global_position
+			chocolate.connect("drag_changed_sent", _set_is_dragging)
 			
 		DragManager.available_chocolate_spots.clear()
 		_chocolate_refillable = false
@@ -125,9 +135,10 @@ func _on_lollipop_refill_button_pressed() -> void:
 	if _lollipop_refillable:
 		AudioController.play_button()
 		for i in DragManager.available_lollipop_spots.size():
-			var lollipop = preload("res://lollipop/lollipop.tscn").instantiate()
+			var lollipop : Lollipop = preload("res://lollipop/lollipop.tscn").instantiate()
 			add_child(lollipop)
 			lollipop.global_position = DragManager.available_lollipop_spots[i].global_position
+			lollipop.connect("drag_changed_sent", _set_is_dragging)
 			
 		DragManager.available_lollipop_spots.clear()
 		_lollipop_refillable = false
@@ -143,7 +154,6 @@ func _on_lollipop_refill_timer_timeout() -> void:
 
 func _on_restart_button_pressed() -> void:
 	AudioController.play_button()
-	DragManager.is_dragging = false
 	DragManager.available_chocolate_spots = []
 	DragManager.available_lollipop_spots = []
 	WinLoseManager.win_percent = 0
@@ -155,7 +165,6 @@ func _on_restart_button_pressed() -> void:
 func _on_main_menu_button_pressed() -> void:
 	AudioController.play_button()
 	AudioController.stop_bg_chatter()
-	DragManager.is_dragging = false
 	DragManager.available_chocolate_spots = []
 	DragManager.available_lollipop_spots = []
 	WinLoseManager.win_percent = 0
