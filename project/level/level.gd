@@ -1,12 +1,16 @@
 extends Node2D
 
 signal drag_changed_received (new_drag : bool)
+signal chocolate_availability_received (new_availability : Array)
+signal lollipop_availability_received (new_availability : Array)
 
 var _is_dragging := false
 var _available_customer_spots : Array = []
 var _busy_customer_spots : Array = []
 var _chocolate_refillable := true
 var _lollipop_refillable := true
+var _available_chocolate_spots : Array = []
+var _available_lollipop_spots : Array = []
 
 @onready var customer_respawn_timer: Timer = $CustomerRespawnTimer
 @onready var chocolate_refill_button: Button = $ChocolateRefillButton
@@ -31,15 +35,15 @@ func _ready() -> void:
 	_available_customer_spots.append($CustomerSpot3)
 	_available_customer_spots.append($CustomerSpot4)
 	
-	DragManager.available_chocolate_spots.clear()
-	DragManager.available_chocolate_spots.append($ChocolateSpot1)
-	DragManager.available_chocolate_spots.append($ChocolateSpot2)
-	DragManager.available_chocolate_spots.append($ChocolateSpot3)
+	_available_chocolate_spots.clear()
+	_available_chocolate_spots.append($ChocolateSpot1)
+	_available_chocolate_spots.append($ChocolateSpot2)
+	_available_chocolate_spots.append($ChocolateSpot3)
 	
-	DragManager.available_lollipop_spots.clear()
-	DragManager.available_lollipop_spots.append($LollipopSpot1)
-	DragManager.available_lollipop_spots.append($LollipopSpot2)
-	DragManager.available_lollipop_spots.append($LollipopSpot3)
+	_available_lollipop_spots.clear()
+	_available_lollipop_spots.append($LollipopSpot1)
+	_available_lollipop_spots.append($LollipopSpot2)
+	_available_lollipop_spots.append($LollipopSpot3)
 	
 	_spawn_customer()
 	
@@ -75,6 +79,16 @@ func _physics_process(_delta: float) -> void:
 func _set_is_dragging(new_is_dragging : bool) -> void:
 	_is_dragging = new_is_dragging
 	drag_changed_received.emit(_is_dragging)
+	
+	
+func _set_availability_chocolate(new_availability : Array) -> void:
+	_available_chocolate_spots = new_availability
+	chocolate_availability_received.emit(_available_chocolate_spots)
+	
+	
+func _set_availability_lollipop(new_availability : Array) -> void:
+	_available_lollipop_spots = new_availability
+	lollipop_availability_received.emit(_available_lollipop_spots)
 
 
 func _spawn_customer() -> void:
@@ -112,13 +126,14 @@ func _on_customer_respawn_timer_timeout() -> void:
 func _on_chocolate_refill_button_pressed() -> void:
 	if _chocolate_refillable:
 		AudioController.play_button()
-		for i in DragManager.available_chocolate_spots.size():
+		for i in _available_chocolate_spots.size():
 			var chocolate : Chocolate = preload("res://chocolate/chocolate.tscn").instantiate()
 			add_child(chocolate)
-			chocolate.global_position = DragManager.available_chocolate_spots[i].global_position
+			chocolate.global_position = _available_chocolate_spots[i].global_position
 			chocolate.connect("drag_changed_sent", _set_is_dragging)
+			chocolate.connect("availability_changed_sent", _set_availability_chocolate)
 			
-		DragManager.available_chocolate_spots.clear()
+		_available_chocolate_spots.clear()
 		_chocolate_refillable = false
 		_change_button_theme(chocolate_refill_button, Color.RED, Color.DARK_RED)
 		chocolate_refill_timer.start()
@@ -134,13 +149,14 @@ func _on_chocolate_refill_timer_timeout() -> void:
 func _on_lollipop_refill_button_pressed() -> void:
 	if _lollipop_refillable:
 		AudioController.play_button()
-		for i in DragManager.available_lollipop_spots.size():
+		for i in _available_lollipop_spots.size():
 			var lollipop : Lollipop = preload("res://lollipop/lollipop.tscn").instantiate()
 			add_child(lollipop)
-			lollipop.global_position = DragManager.available_lollipop_spots[i].global_position
+			lollipop.global_position = _available_lollipop_spots[i].global_position
 			lollipop.connect("drag_changed_sent", _set_is_dragging)
+			lollipop.connect("availability_changed_sent", _set_availability_lollipop)
 			
-		DragManager.available_lollipop_spots.clear()
+		_available_lollipop_spots.clear()
 		_lollipop_refillable = false
 		_change_button_theme(lollipop_refill_button, Color.RED, Color.DARK_RED)
 		lollipop_refill_timer.start()

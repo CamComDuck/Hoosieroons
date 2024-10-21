@@ -2,6 +2,7 @@ class_name Lollipop
 extends Node2D
 
 signal drag_changed_sent
+signal availability_changed_sent (new_availability : Array)
 
 var _is_dragging := false
 var _draggable := false
@@ -10,9 +11,11 @@ var _current_object : StaticBody2D
 var _hovered_object : StaticBody2D
 var _offset : Vector2
 var _initial_pos : Vector2
+var _available_lollipop_spots : Array = []
 
 func _ready() -> void:
 	get_parent().connect("drag_changed_received", _set_is_dragging)
+	get_parent().connect("lollipop_availability_received", _set_availability)
 	
 
 func _process(_delta: float) -> void:
@@ -31,8 +34,11 @@ func _process(_delta: float) -> void:
 			
 			if _is_inside_dropable:
 				if _hovered_object != null:
-					DragManager.available_lollipop_spots.append(_current_object)
-					DragManager.available_lollipop_spots.erase(_hovered_object)
+					#DragManager.available_lollipop_spots.append(_current_object)
+					#DragManager.available_lollipop_spots.erase(_hovered_object)
+					_available_lollipop_spots.append(_current_object)
+					_available_lollipop_spots.erase(_hovered_object)
+					availability_changed_sent.emit(_available_lollipop_spots)
 					
 					if _hovered_object.is_in_group(DragManager.customer_group):
 						_hovered_object.want_item_collision("LOLLIPOP")
@@ -45,9 +51,13 @@ func _process(_delta: float) -> void:
 				var tween = get_tree().create_tween()
 				tween.tween_property(self, "global_position",_initial_pos, 0.2).set_ease(Tween.EASE_OUT)
 	
-
+	
 func _set_is_dragging(new_is_dragging : bool) -> void:
 	_is_dragging = new_is_dragging
+	
+
+func _set_availability(new_availability : Array) -> void:
+	_available_lollipop_spots = new_availability
 	
 	
 func _on_mouse_entered() -> void:
@@ -65,7 +75,7 @@ func _on_body_entered(body: Node2D) -> void:
 		_initial_pos = global_position
 		_is_inside_dropable = true
 		_current_object = body
-	elif DragManager.available_lollipop_spots.has(body):
+	elif _available_lollipop_spots.has(body):
 		_is_inside_dropable = true
 		_hovered_object = body
 		body.modulate = Color(Color.GRAY, 0.8)
