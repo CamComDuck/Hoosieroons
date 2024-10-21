@@ -19,11 +19,11 @@ func _ready() -> void:
 	
 	if random_item == 0:
 		_want_item = "CHOCOLATE"
-		add_to_group(DragManager.dropable_chocolate_group)
+		add_to_group(GroupNames.dropable_chocolate_group)
 		item_img.texture = load("res://chocolate/chocolate.png")
 	else:
 		_want_item = "LOLLIPOP"
-		add_to_group(DragManager.dropable_lollipop_group)
+		add_to_group(GroupNames.dropable_lollipop_group)
 		item_img.texture = load("res://lollipop/lollipop.png")
 		
 	happiness_timer.wait_time = randf_range(7, 11)

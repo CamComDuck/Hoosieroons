@@ -170,8 +170,6 @@ func _on_lollipop_refill_timer_timeout() -> void:
 
 func _on_restart_button_pressed() -> void:
 	AudioController.play_button()
-	DragManager.available_chocolate_spots = []
-	DragManager.available_lollipop_spots = []
 	WinLoseManager.win_percent = 0
 	WinLoseManager.lose_percent = 0
 	WinLoseManager.game_over = false
@@ -181,8 +179,6 @@ func _on_restart_button_pressed() -> void:
 func _on_main_menu_button_pressed() -> void:
 	AudioController.play_button()
 	AudioController.stop_bg_chatter()
-	DragManager.available_chocolate_spots = []
-	DragManager.available_lollipop_spots = []
 	WinLoseManager.win_percent = 0
 	WinLoseManager.lose_percent = 0
 	WinLoseManager.game_over = false

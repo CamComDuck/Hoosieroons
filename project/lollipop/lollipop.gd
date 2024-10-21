@@ -34,13 +34,11 @@ func _process(_delta: float) -> void:
 			
 			if _is_inside_dropable:
 				if _hovered_object != null:
-					#DragManager.available_lollipop_spots.append(_current_object)
-					#DragManager.available_lollipop_spots.erase(_hovered_object)
 					_available_lollipop_spots.append(_current_object)
 					_available_lollipop_spots.erase(_hovered_object)
 					availability_changed_sent.emit(_available_lollipop_spots)
 					
-					if _hovered_object.is_in_group(DragManager.customer_group):
+					if _hovered_object.is_in_group(GroupNames.customer_group):
 						_hovered_object.want_item_collision("LOLLIPOP")
 						queue_free()
 					else:
@@ -70,7 +68,7 @@ func _on_mouse_exited() -> void:
 		_draggable = false
 
 
-func _on_body_entered(body: Node2D) -> void:
+func _on_body_entered(body: StaticBody2D) -> void:
 	if _current_object == null:
 		_initial_pos = global_position
 		_is_inside_dropable = true
@@ -79,17 +77,17 @@ func _on_body_entered(body: Node2D) -> void:
 		_is_inside_dropable = true
 		_hovered_object = body
 		body.modulate = Color(Color.GRAY, 0.8)
-	elif body.is_in_group(DragManager.dropable_lollipop_group) and body.is_in_group(DragManager.customer_group):
+	elif body.is_in_group(GroupNames.dropable_lollipop_group) and body.is_in_group(GroupNames.customer_group):
 		_is_inside_dropable = true
 		_hovered_object = body
 		body.modulate = Color(Color.GRAY, 1)
 
 
-func _on_body_exited(body: Node2D) -> void:
-	if body.is_in_group(DragManager.dropable_lollipop_group):
+func _on_body_exited(body: StaticBody2D) -> void:
+	if body.is_in_group(GroupNames.dropable_lollipop_group):
 		_is_inside_dropable = false
 		
-		if body.is_in_group(DragManager.customer_group):
+		if body.is_in_group(GroupNames.customer_group):
 			body.modulate = Color(Color.WHITE, 1)
 		else:
 			body.modulate = Color(Color.SLATE_GRAY, 0.5)
